@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :user do
-    username { 'testtest' }
-    password { 'testtest' }
+    sequence(:username) { |n| "testuser#{n}" } # Ensures unique usernames
+    password { 'password' }
   end
 end
+

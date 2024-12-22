@@ -33,6 +33,12 @@ RSpec.describe SessionsController, type: :controller do
         username: user.username
       }.to_json)
     end
+    let(:user) { FactoryBot.create(:user, username: 'testuser', password: 'password') }
+
+before do
+  session[:user_id] = user.id
+end
+
   end
 
   describe 'DELETE /sessions' do

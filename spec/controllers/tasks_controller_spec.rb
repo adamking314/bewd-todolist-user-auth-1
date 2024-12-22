@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
+  let(:user) { FactoryBot.create(:user) }
+
+  before do
+    session[:user_id] = user.id
+  end
+  
   render_views
 
   describe 'GET /tasks' do
