@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
@@ -6,11 +7,11 @@ RSpec.describe UsersController, type: :controller do
   describe 'POST /users' do
     it 'renders new user object' do
       post :create, params: {
-        user: {
-          password: 'asdasdasd',
-          username: 'test'
+      user: {
+       username: 'testing',
+      password: 'testing123'
         }
-      }
+          }
 
       expect(response.body).to eq({
         user: {

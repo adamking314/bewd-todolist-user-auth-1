@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_21_222350) do
+ActiveRecord::Schema.define(version: 2024_12_27_205142) do
 
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2024_12_21_222350) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "username"
     t.string "password"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "sessions", "users"

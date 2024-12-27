@@ -1,13 +1,11 @@
 class Session < ApplicationRecord
-    before_create :generate_token
+  belongs_to :user
 
-    private
+  before_validation :generate_session_token, on: :create
 
-    def generate_token
-      self.token ||= SecureRandom.hex(20)
-    end
+  private
 
-    belongs_to :user
-
-    validates :session_token, presence: true, uniqueness: true
+  def generate_session_token
+    self.session_token ||= SecureRandom.hex(16)
+  end
 end

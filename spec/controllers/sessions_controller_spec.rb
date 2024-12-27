@@ -5,12 +5,12 @@ RSpec.describe SessionsController, type: :controller do
 
   describe 'POST /sessions' do
     it 'renders new session object' do
-      FactoryBot.create(:user, username: 'asdasdasd', password: 'asdasdasd')
+      FactoryBot.create(:user, username: 'testing123', password: 'testing123')
 
       post :create, params: {
         user: {
-          username: 'asdasdasd',
-          password: 'asdasdasd'
+          username: 'testing123',
+          password: 'testing123'
         }
       }
 
@@ -33,12 +33,6 @@ RSpec.describe SessionsController, type: :controller do
         username: user.username
       }.to_json)
     end
-    let(:user) { FactoryBot.create(:user, username: 'testuser', password: 'password') }
-
-before do
-  session[:user_id] = user.id
-end
-
   end
 
   describe 'DELETE /sessions' do

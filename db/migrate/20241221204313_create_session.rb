@@ -1,9 +1,8 @@
 class CreateSession < ActiveRecord::Migration[6.1]
   def change
     create_table :sessions do |t|
-      t.references :user, foreign_key: true, null: false # Links session to a user
-      t.string :session_token, null: false, unique: true # Stores the session token
-      t.datetime :expires_at    
+      t.string :token
+      t.belongs_to :user, index: true, foreign_key: true
 
       t.timestamps
     end

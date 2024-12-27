@@ -23,12 +23,13 @@ class SessionsController < ApplicationController
       token = cookies.permanent.signed[:todolist_session_token]
       session = Session.find_by(token: token)
       session[:user_id] = user.id
-      user = User.find_by(id: session[:user_id]) # Find user by session ID
-       if user
-            render json: { authenticated: true, username: user.username }
-           else
-            render json: { authenticated: false }
-         end
+      user = User.find_by(id: session[:user_id])
+  if user
+    render json: { user: { id: user.id, username: user.username } }, status: :ok
+  else
+    render json: { error: 'Not authenticated' }, status: :unauthorized
+  end
+
 
       if session
         user = session.user

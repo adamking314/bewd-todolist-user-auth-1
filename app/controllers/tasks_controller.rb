@@ -19,18 +19,16 @@ class TasksController < ApplicationController
   def create
     token = cookies.signed[:todolist_session_token]
     session = Session.find_by(token: token)
-    @task = current_user.tasks.new(task_params)
 
-      if @task.save
-        render 'tasks/show'  # Ensure you render the task after it's saved
-      else
-        render json: { error: 'Task creation failed' }, status: :unprocessable_entity
-      end
-    
     if session
       user = session.user
       @task = user.tasks.new(task_params)
-      @task = current_user.tasks.new(task_params)
+
+      if @task.save
+        render 'tasks/create' # can be omitted
+      else
+        render json: { success: false }
+      end
     else
       render json: { success: false }
     end
@@ -63,21 +61,4 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:content)
   end
-
-  def my_tasks
-    tasks = current_user.tasks
-    render json: { tasks: tasks }
-  end
-    
-
-def create
-  @task = current_user.tasks.new(task_params)
-  if @task.save
-    render json: @task, status: :created
-  else
-    render json: @task.errors, status: :unprocessable_entity
-  end
-end
-
-
 end
